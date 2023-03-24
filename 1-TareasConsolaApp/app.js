@@ -4,8 +4,7 @@ const { mostrarMenu, pausa } = require('./helpers/mensajes');
 const main = async() => {
     console.clear();
     while(true) {
-        let opt = await mostrarMenu();
-        await pausa();
+        let opt = await import('./helpers/inquirer.mjs').then(module => module.inquirerMenu());
         if (opt === '0') {
             break;
         }
