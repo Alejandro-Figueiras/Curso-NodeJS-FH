@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-//require('colors');
+import colors from 'colors';
 
 const menuOpts = [
     {
@@ -9,31 +9,31 @@ const menuOpts = [
         choices: [
             {
                 value: '1',
-                name: "1. Crear Tarea"
+                name: `${"1.".green} Crear Tarea`
             },
             {
                 value: '2',
-                name: "2. Listar Tarea"
+                name: `${"2.".green} Listar Tarea`
             },
             {
                 value: '3',
-                name: "3. Listar Tareas Completadas"
+                name: `${"3.".green} Listar Tareas Completadas`
             },
             {
                 value: '4',
-                name: "4. Listar Tareas Pendientes"
+                name: `${"4.".green} Listar Tareas Pendientes`
             },
             {
                 value: '5',
-                name: "5. Completar Tareas"
+                name: `${"5.".green} Completar Tareas`
             },
             {
                 value: '6',
-                name: "6. Eliminar Tareas"
+                name: `${"6.".green} Eliminar Tareas`
             },
             {
                 value: '0',
-                name: "0. Salir"
+                name: `${"0.".green} Salir`
             }
         ]
     }
