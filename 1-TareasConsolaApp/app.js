@@ -22,7 +22,13 @@ const main = async() => {
                 tareas.crearTarea(desc);
                 break;
             case '2': // listar tareas
-                console.log(tareas._listado);
+                tareas.listadoCompleto();
+                break;
+            case '3': // listar tareas completadas
+                tareas.listarPendientesCompletadas(true);
+                break;
+            case '4': // listar tareas pendientes
+                tareas.listarPendientesCompletadas(false);
                 break;
                 
         }
