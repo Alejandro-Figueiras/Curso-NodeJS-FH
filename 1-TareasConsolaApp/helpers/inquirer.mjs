@@ -69,6 +69,41 @@ export const leerInput = async(message) => {
     return desc
 }
 
+export const borrarTareas = async(tareas = []) => {
+    const choices = tareas.map((tarea, idx) => {
+        return {
+            value: tarea.id,
+            name: `${`${idx+1}.`.green} ${tarea.desc}`
+        }
+    })
+    choices.unshift({
+        value: '0',
+        name: `${'0.'. green} Cancelar`
+    })
+    const question = [
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Borrar tarea',
+            choices
+        }
+    ]
+    const { id } = await inquirer.prompt(question);
+    return id;
+}
+
+export const confirmar = async(message) => {
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ]
+    const { ok } = await inquirer.prompt(question);
+    return ok;
+}
+
 export const pausa = async() => {
     return await inquirer.prompt([
         {

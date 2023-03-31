@@ -28,7 +28,7 @@ class Tareas {
         this.listadoArr.forEach((tarea, i) => {
             const { desc, completadoEn} = tarea;
             const estado = (completadoEn)?'Completada'.green:'Pendiente'.red;
-            console.log(`${`${i}.`.green} ${desc} :: ${estado}`);
+            console.log(`${`${i+1}.`.green} ${desc} :: ${estado}`);
         })
     }
 
@@ -42,6 +42,10 @@ class Tareas {
                 console.log(`${`${++i}.`.red} ${desc}`);
             }
         })
+    }
+
+    borrarObjeto(id) {
+        if (this._listado[id]) delete this._listado[id];
     }
 }
 

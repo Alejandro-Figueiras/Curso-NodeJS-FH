@@ -30,7 +30,15 @@ const main = async() => {
             case '4': // listar tareas pendientes
                 tareas.listarPendientesCompletadas(false);
                 break;
-                
+            case '6': // borrar tareas
+                let id = await inquirer.borrarTareas(tareas.listadoArr);
+                if (id == '0') break;
+                let ok = await inquirer.confirmar('¿Estás seguro?')
+                if (ok) {
+                    tareas.borrarObjeto(id);
+                    console.log(`${'!'.blue} Tarea Borrada Satisfactoriamente!`);
+                }
+                break;
         }
         await inquirer.pausa();
         guardarDB(tareas.listadoArr);
