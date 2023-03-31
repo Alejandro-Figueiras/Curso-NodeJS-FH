@@ -92,6 +92,26 @@ export const borrarTareas = async(tareas = []) => {
     return id;
 }
 
+export const completarTareas = async(tareas = []) => {
+    const choices = tareas.map((tarea, idx) => {
+        return {
+            value: tarea.id,
+            name: `${`${idx+1}.`.green} ${tarea.desc}`,
+            checked: (tarea.completadoEn)?true:false
+        }
+    })
+    const question = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Borrar tarea',
+            choices
+        }
+    ]
+    const { ids } = await inquirer.prompt(question);
+    return ids;
+}
+
 export const confirmar = async(message) => {
     const question = [
         {

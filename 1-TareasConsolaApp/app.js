@@ -30,6 +30,10 @@ const main = async() => {
             case '4': // listar tareas pendientes
                 tareas.listarPendientesCompletadas(false);
                 break;
+            case '5': // completar y descompletar tareas
+                const ids = await inquirer.completarTareas(tareas.listadoArr);
+                tareas.toggleCompletadas(ids);
+                break;
             case '6': // borrar tareas
                 let id = await inquirer.borrarTareas(tareas.listadoArr);
                 if (id == '0') break;
