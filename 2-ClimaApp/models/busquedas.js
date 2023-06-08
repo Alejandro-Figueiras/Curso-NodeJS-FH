@@ -14,8 +14,16 @@ module.exports = class Busquedas {
     get paramsMapBox() {
         return {
             'access_token': process.env.MAPBOX_KEY,
-            limit: 5,
+            limit: 10,
             language: 'es'
+        }
+    }
+
+    get paramsOWM() {
+        return {
+            appid: process.env.OPENWEATHERMAP_KEY,
+            units: 'metric',
+            lang: 'es'
         }
     }
 
@@ -33,9 +41,29 @@ module.exports = class Busquedas {
                 nombre: lugar.place_name,
                 lng: lugar.center[0],
                 lat: lugar.center[1]
-            })); // retornar las busquedas
+            }));
         } catch (error) {
             return []; //  resultados vacios
+        }
+    }
+
+    async consultarClima(lat, lon) {
+        try {
+            const instance = axios.create({
+                baseURL: 'https://api.openweathermap.org/data/2.5/weather',
+                params: { ...this.paramsOWM, lat, lon }
+            })
+
+            const {weather, main} = (await instance.get()).data;
+
+            return {
+                desc: weather[0].description,
+                min: main.temp_min,
+                max: main.temp_max,
+                temp: main.temp
+            }
+        } catch(error) {
+            console.log(error)
         }
     }
 }

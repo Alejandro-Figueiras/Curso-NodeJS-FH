@@ -26,7 +26,7 @@ const menuOpts = [
 export const inquirerMenu = async() => {
     console.clear();
     console.log("===============================".green);
-    console.log("    Seleccione una opción".green);
+    console.log("         Weather App".green);
     console.log("===============================\n".green);
 
     const { opcion } = await inquirer.prompt(menuOpts);

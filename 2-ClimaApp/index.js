@@ -18,15 +18,19 @@ const main = async() => {
                 if (index == -1) break;
 
                 const lugar = lugares[index];
+
+                // Tiempo
+                const tiempo = await busquedas.consultarClima(lugar.lat, lugar.lng);
                 
                 // mostrar resultados
                 console.log(`\n=== Información del tiempo ===`.green)
                 console.log(`Ciudad: ${lugar.nombre}`)
                 console.log(`Latitud: ${lugar.lat}`)
                 console.log(`Longitud: ${lugar.lng}`)
-                console.log(`Temperatura:`)
-                console.log(`Máxima:`)
-                console.log(`Mínima:`)
+                console.log(`Tiempo Atmosférico: ${tiempo.desc}`)
+                console.log(`Temperatura: ${tiempo.temp} °C`)
+                console.log(`Mínima: ${tiempo.min} °C`)
+                console.log(`Máxima: ${tiempo.max} °C`)
 
                 await inquirer.pausa();
                 break;
