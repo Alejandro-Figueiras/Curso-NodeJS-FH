@@ -1,3 +1,4 @@
+require("dotenv").config()
 const Busquedas = require('./models/busquedas');
 
 const main = async() => {
@@ -12,8 +13,9 @@ const main = async() => {
         switch(opt) {
             case 1: 
                 // mostrar el mensaje
-                const lugar = await inquirer.leerInput("Ciudad:");
-                
+                const termino = await inquirer.leerInput("Ciudad:");
+                const lugares = await busquedas.buscarCiudad(termino);
+                console.log(lugares);
                 // buscar el lugar
 
                 // seleccionar lugar
@@ -31,6 +33,7 @@ const main = async() => {
         if (opt == 0) {
             break;
         }
+        await inquirer.leerInput("Pausa");
     }
 }
 
