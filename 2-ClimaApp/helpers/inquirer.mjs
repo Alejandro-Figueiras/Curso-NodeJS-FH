@@ -53,59 +53,27 @@ export const leerInput = async(message) => {
     return desc
 }
 
-export const borrarTareas = async(tareas = []) => {
-    const choices = tareas.map((tarea, idx) => {
+export const listarLugares = async(lugares = []) => {
+    const choices = lugares.map((lugar, i) => {
         return {
-            value: tarea.id,
-            name: `${`${idx+1}.`.green} ${tarea.desc}`
+            value: i,
+            name: `${`${i+1}.`.green} ${lugar.nombre}`
         }
     })
-    choices.unshift({
-        value: '0',
+    choices.push({
+        value: -1,
         name: `${'0.'. green} Cancelar`
     })
     const question = [
         {
             type: 'list',
             name: 'id',
-            message: 'Borrar tarea',
+            message: 'Selecciona la ciudad',
             choices
         }
     ]
     const { id } = await inquirer.prompt(question);
     return id;
-}
-
-export const completarTareas = async(tareas = []) => {
-    const choices = tareas.map((tarea, idx) => {
-        return {
-            value: tarea.id,
-            name: `${`${idx+1}.`.green} ${tarea.desc}`,
-            checked: (tarea.completadoEn)?true:false
-        }
-    })
-    const question = [
-        {
-            type: 'checkbox',
-            name: 'ids',
-            message: 'Borrar tarea',
-            choices
-        }
-    ]
-    const { ids } = await inquirer.prompt(question);
-    return ids;
-}
-
-export const confirmar = async(message) => {
-    const question = [
-        {
-            type: 'confirm',
-            name: 'ok',
-            message
-        }
-    ]
-    const { ok } = await inquirer.prompt(question);
-    return ok;
 }
 
 export const pausa = async() => {
