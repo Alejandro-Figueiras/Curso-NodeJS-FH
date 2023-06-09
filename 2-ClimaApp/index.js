@@ -18,7 +18,8 @@ const main = async() => {
                 if (index == -1) break;
 
                 const lugar = lugares[index];
-
+                busquedas.agregarHistorial(lugar.nombre);
+                
                 // Tiempo
                 const tiempo = await busquedas.consultarClima(lugar.lat, lugar.lng);
                 
@@ -32,6 +33,12 @@ const main = async() => {
                 console.log(`Mínima: ${tiempo.min} °C`)
                 console.log(`Máxima: ${tiempo.max} °C`)
 
+                await inquirer.pausa();
+                break;
+            case 2: 
+                busquedas.historial.forEach((lugar, i) => {
+                    console.log(`${i+1}.`.green, lugar)
+                })
                 await inquirer.pausa();
                 break;
         }

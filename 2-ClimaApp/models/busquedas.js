@@ -1,14 +1,12 @@
 const { default: axios } = require("axios");
+const fs = require('fs')
 
 module.exports = class Busquedas {
-    historial = [
-        "Madrid",
-        "Bogotá",
-        "Barcelona"
-    ]
+    historial = []
+    dbPath = './db.json'
 
     constructor() {
-        // TODO: leer db si existe
+        this.leerDB()
     }
 
     get paramsMapBox() {
@@ -65,5 +63,26 @@ module.exports = class Busquedas {
         } catch(error) {
             console.log(error)
         }
+    }
+
+    agregarHistorial(lugar = '') {
+        if (this.historial.includes(lugar)) {
+            this.historial.splice(this.historial.indexOf(lugar), 1);
+        }
+        this.historial.unshift(lugar);
+
+        this.historial.splice(15,80)
+
+        this.guardarDB() 
+    }
+
+    leerDB() {
+        if (fs.existsSync(this.dbPath)) {
+            this.historial = JSON.parse(fs.readFileSync(this.dbPath, {encoding: 'utf-8'}))
+        }
+    }
+    
+    guardarDB() {
+        fs.writeFileSync(this.dbPath, JSON.stringify(this.historial))
     }
 }
