@@ -4,7 +4,7 @@ const { usuariosGet, usuariosPost, usuariosPut, usuariosPatch, usuariosDelete } 
 const router = Router();
 
 router.get('/', usuariosGet)
-router.post('/', usuariosPost)
+router.post('/:id', usuariosPost)
 router.put('/', usuariosPut)
 router.patch('/', usuariosPatch)
 router.delete('/', usuariosDelete)

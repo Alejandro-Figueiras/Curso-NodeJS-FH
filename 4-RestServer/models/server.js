@@ -14,6 +14,10 @@ module.exports = class Server {
 
     middlewares() {
         this.app.use(cors())
+
+        // Lectura y parseo del body
+        this.app.use(express.json())
+
         this.app.use(express.static('public'))
     }
 
