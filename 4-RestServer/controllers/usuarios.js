@@ -18,7 +18,7 @@ const nuevoUsuario = async(req = request, res = response) => {
     })
 }
 
-const usuariosPut = async(req = request, res = response) => {
+const modificarUsuario = async(req = request, res = response) => {
     // /api/usuarios/_id_
     const id = req.params.id;
     const {_id, password, google, correo, ...resto } = req.body;
@@ -37,33 +37,36 @@ const usuariosPut = async(req = request, res = response) => {
     
 }
 
-const usuariosGet = (req = request, res = response) => {
-    // /api/usuarios?param=10&apikey=10
-    const query = req.query;
+const obtenerUsuarios = async(req = request, res = response) => {
+    const { limite = 10, from = 0 } = req.query;
+
+    const [total, usuarios] = await Promise.all([
+        Usuario.countDocuments({ estado: true }),
+        Usuario.find({estado: true})
+            .skip(Number(from))
+            .limit(Number(limite))
+    ])
     res.json({
-        msg: "get api",
-        query
+        total,
+        usuarios
     })
 }
 
+const borrarUsuario = async(req = request, res = response) => {
+    const { id } = req.params;
 
-const usuariosPatch = (req = request, res = response) => {
-    res.json({
-        msg: "patch api"
-    })
+    // Fisicamente
+    // const usuario = await Usuario.findByIdAndDelete(id)
+
+    // Cambio de estado
+    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false})
+    
+    res.json(usuario)
 }
-
-const usuariosDelete = (req = request, res = response) => {
-    res.json({
-        msg: "delete api"
-    })
-}
-
 
 module.exports = {
-    usuariosGet,
+    obtenerUsuarios,
     nuevoUsuario,
-    usuariosPut,
-    usuariosPatch,
-    usuariosDelete
+    modificarUsuario,
+    borrarUsuario
 }
