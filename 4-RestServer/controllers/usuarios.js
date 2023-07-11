@@ -18,6 +18,25 @@ const nuevoUsuario = async(req = request, res = response) => {
     })
 }
 
+const usuariosPut = async(req = request, res = response) => {
+    // /api/usuarios/_id_
+    const id = req.params.id;
+    const {_id, password, google, correo, ...resto } = req.body;
+    
+    // TODO validar contra la DB
+    if (password) {
+        // Encriptar password
+        const salt = bcrypt.genSaltSync(10);
+        const passwordHash = bcrypt.hashSync(password, salt)
+        resto.password = passwordHash;
+    }
+
+    const usuario = await Usuario.findByIdAndUpdate(id, resto)
+
+    res.json(usuario)
+    
+}
+
 const usuariosGet = (req = request, res = response) => {
     // /api/usuarios?param=10&apikey=10
     const query = req.query;
@@ -27,16 +46,6 @@ const usuariosGet = (req = request, res = response) => {
     })
 }
 
-
-const usuariosPut = (req = request, res = response) => {
-    // /api/usuarios/_id_
-    const id = req.params.id;
-
-    res.json({
-        msg: "put api",
-        id
-    })
-}
 
 const usuariosPatch = (req = request, res = response) => {
     res.json({
