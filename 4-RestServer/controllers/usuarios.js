@@ -4,25 +4,17 @@ const Usuario = require("../models/usuario")
 
 const nuevoUsuario = async(req = request, res = response) => {
     const { nombre, correo, password, rol } = req.body;
-    
-    // Verificar si el correo existe
-    const existeEmail = await Usuario.findOne( {correo} )
-    if (existeEmail) {
-        return res.status(400).json({
-            error: "Correo ya registrado"
-        })
-    }
 
     // Encriptar password
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(password, salt)
-    console.log(password, passwordHash)
 
     const usuario = new Usuario({nombre, correo, password: passwordHash, rol});
 
     await usuario.save();
     res.json({
         msg: "Usuario agregado correctamente",
+        ...(usuario.toJSON())
     })
 }
 
